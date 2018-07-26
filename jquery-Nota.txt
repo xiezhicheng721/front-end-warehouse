@@ -1,0 +1,146 @@
+一、基础：
+1.原生JS在head中写法：
+      window.onload=function(){你的js代码}
+   JQuery写法:   
+     $(document).ready(function(){})  简写：$(function(){})
+
+2.click 当元素点击是触发 于原生onclick相似
+3.原生对象获取方法：
+  document.getElementById()    获取ID名称
+  document.getElementsName()    获取标签的name名称
+  document.getElementsClassName()   获取Class名称
+  document.getElementsByTagName()   获取标签名称
+4.选择器：
+ id选择器  $("#box").CSS()         
+  类选择器$(".box").CSS()     
+  标签选择器$("P").CSS()
+  组合选择器(多元素)$("p","span","#box")   
+  后代选择器$("#box p")用空格隔开
+ >子元素选择器$("#box>p").css()   id为box下的p标签
+5.  "*"星号表示包含，[]里面添加条件
+  例：$("input[value*=woqu]")  意思：带有value且value中包含woqu的input
+  ^以...开头   
+  $以....结尾
+ 6. parent 寻找有文本内容或有子元素的元素   var $div =$('div:parent')
+ 7. empty 寻找既没有文本内容，又没有子元素的元素（里面什么都没有）
+ 例: var $div =$('div:empty')   找到没有内容的div  
+ 8. contains()寻找包含括号指定文本的元素
+ 9. has()    寻找包含括号里面指定子元素的元素
+10.过滤      
+   ：first  选择第一个     
+   ：last 选择最后一个
+例：$("li:first").css   意思：当一个ul中有多个li 表示选择第一个li来设置样式
+  :event 表示选择下标为偶数2468      
+  :add 表示选择下标为奇数13579
+  eq()下标等于           lt()下标小于          gt()下标大于      括号里面是具体的下标
+  not()表示排除括号里面的条件   其他的都能匹配
+11.DOM对象与Jquery对象的转换
+  语法： var jqueryObj = $(domObj);
+       var  domObj = jqueryObj.get([index])
+ 
+ 二、---------------------添加类与循环方法：------------------------------
+1. addClass 为每个匹配的元素添加类     如果要添加多个可以用空格隔开添加      
+2. removeClass   移除每个元素上的类
+3. toggleClass   切换 --->点击第二次切换回原状:有加删除没有就添加
+4. each() 循环    
+   map()也是用于循环遍历
+例：var arr=[1,3,5,7]
+    $.esch(arr,function(){
+      执行代码
+    }) 
+5. attr()获取或设置属性     括号传一个参数为获取  传两个为设置
+   removeAttr  删除属性
+6. prop()设置或获取元素属性 
+   removeAttr() 删除属性     
+ 总结： 具有true和false属性的用prop()如checked、selected或disabled
+            其他时候用attr()获取或设置元素
+
+三、-----------------------------DOM相关操作方法:-----------------------------
+1. append   在...里添加元素或内容  内容显示在原有元素的下方        
+2. appendTo      元素或内容添加到...中   内容显示在原有元素的下方     
+3. prepend       与上面用法相同，只是内容显示在原有元素的上方
+4. prependTo
+5. before 与 insertBefore  在元素前方添加元素
+6. after 与  insertAfter    在元素后方添加元素
+7. val() 获取或设置input的内容      如果input中有内容表示获取，如果没有内容表示设置
+8. index()   获取元素的下标      
+9. get() 可以获取集合中的某个元素,括号里面输入下标，输入负值会从最后开始找
+10. html() 与原生代码innerHTML一样 括号里面是所要添加的内容
+11. text()  与原生innerText一样 括号里面如果输入了标签，标签一样会打印出来，不会被解析
+12. push() 方法可向数组的末尾添加一个或多个元素,并返回新的长度
+
+四、---------------------------获取兄弟元素:--------------------------
+1.  prev()   获取button的上一个兄弟元素
+2.  prevALL()    获取button上面的所有元素
+3.  next()     获取button的下一个兄弟元素  
+4.  nextALL()    获取button下面的所有元素
+5.  siblings()     找到所有的兄弟元
+6.显示与隐藏，展开与收起：     
+    show()代表显示    括号里面可以输入显示完成的时间，和完成后执行的函数function(){}
+    hide()代表隐藏  括号里面也可以设置时间与执行函数
+    toggle()切换显示隐藏，原本显示的就隐藏，否则相反
+7.展示与收起：    
+     展示 slideDown()  
+     收取slideUp()            括号里面可设置时间与执行函数
+     切换slideToggle()
+8. 淡入淡出：  
+   fadeIn() 用于淡入已隐藏的元素。
+   fadeOut() 方法用于淡出可见元素。
+   fadeToggle() 方法可以在 fadeIn() 与 fadeOut() 方法之间进行切换。
+   fadeTo() 方法允许渐变为给定的不透明度（值介于 0 与 1 之间）。
+注意：设置动漫效果时，最好先设置stop()以便消除隐藏的bug
+      例：$('.box').stop().fadeIn()
+9. remove()  删除元素：$('.box').remove() 表示删除.box        
+   closest()  查找最近的父元素
+10.自定义动画：
+   animate({},时间,执行函数)     其中{}中可以修改对象的属性
+   linear 用于设置节奏，写在时间后面  如：animate({},1000,'linear',function{})
+   
+   
+五、-------------------------事件绑定与删除--------------------------------
+1.鼠标移入    mouseover    mouseenter
+2.鼠标移出    mouseout     mouseleave
+ 注意：mouseover/  mouseout 子元素与父元素同时设置移入移出时，触发子元素会触发父元素(冒泡事件)
+      mouseenter/mouseleave   不会触发冒泡事件 ，开发中推荐使用
+3.on()  可用于同事绑定多个事件,括号前面事件，后面执行函数如:on('click',function(){})                         
+4.off()事件删除，括号里面可以指定删除那个事件 ，不传参数表示移出所有事件
+例：$('#box').on('mouseover','mouseout',function(){
+   alert(1)         
+   $(this).off('mouseover')     
+})
+注释： 用on()同时绑定移入移出事件 经过off()删除移入后,只剩下移出执行   
+5. trigger()事件自动触发 ，括号写入所需要触发的事件，打开浏览器后将会自动触发，会触发冒泡。
+6. triggerHandler() 事件自动触发，不会触发父元素的冒泡事件
+7. 自命名空间有效条件：
+      1、必须用on绑定在事件名称后面添加命名 如：on('click.xzc','function(){}')  
+      2.用trigger或triggerHandler触发
+    
+六、------------------------------事件委托：-----------------------------
+1， 概括:原本该子元素做的事件交给父元素来做 
+2. stopPropagation()  用于阻止事件冒泡   语法:event.stopPropagation() 
+3. event.preventDefault()    用于阻止默认行为：如鼠标右键菜单(contextmenu)
+4. 阻止冒泡事件与浏览器的默认行为  也可以直接用 
+5. 事件冒泡：子元素与父元素同时绑定事件，执行子元素时，父元素也被默认执行。
+6. 冒泡阻止方法： 在子元素里面添加 return false
+
+七、----------------------------滚动：--------------------------
+1. scroll 可获取页面是否滚动，只要网页一滚动就会执行
+2. scrollTop() 方法返回或设置匹配元素的滚动条的垂直位置,设置值时直接写入数字,不需要字符串和px
+ 获取网页滚动距离时，兼容解决：$('body').scrollTop()+$('html').scrollTop()
+ 设置网页滚动  兼容解决：$('body,html').scrollTop()      
+3. trim() 去除字符串两边的空格,括号放入需要去除的字符串,返回新的字符串,需要定义变量接收
+4. isWindow()用于判断是否Window对象，返回值为:true,false
+5. isArray()  isfunction()...用于判断数据类型
+6. holdReady() 用于暂停函数执行，括号里面写入true为停止，false为恢复
+7. parent 用于寻找没有文本的div
+
+八、-------------------------获取距离的方法：-------------------------------------
+1.widht() 获取元素的宽度 不包括边框，括号里面输入宽度值为设置宽度，不设置为获取
+    例： $('#box').widht()  
+2.offset().left 获取元素距离浏览器窗口边的距离,后面可设置所需要获取的方向距离(上下左右)
+  设置值需要在括号里面加入{} 
+  例：$('#box').offset({
+          left: 10           设置了距离窗口左边10px
+  })
+3.position() 获取距离定位元素的距离：如绝对定位元素与最近相对定位元素的距离,
+ 可设置上下左右 ，此方法只能获取，不能设置，想要设置可用CSS()方法
